@@ -14,14 +14,14 @@ auth_router = APIRouter()
 async def log_user_in(user: UserLoginSchema):
     
     user_exists = await userModel.by_email(user.email)
-    
+        
     if not user_exists:
-        HTTPException(status_code=404, detail=f"User With {user.email} Not Found")
+        raise HTTPException(status_code=404, detail=f"User With {user.email} Not Found")
         
     password_match = await passwordUtils.verify_password(user.password, user_exists.password)
     
     if not password_match:
-        HTTPException(status_code=404, detail=f"User With {user.email} Not Found P")
+        raise HTTPException(status_code=404, detail=f"User With {user.email} Not Found P")
 
         
     return UserLoginResponseSchema(message="User Found")
@@ -41,13 +41,13 @@ async def register_user(user: UserRegisterSchema):
     
     if user_exists:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User Already Exists")
-        
+            
     new_user = userModel(
         firstname=user.firstname,
         lastname=user.lastname,
         email=user.email,
         nickname=user.nickname,
-        password=user.password,
+        password= await passwordUtils.hash_password(user.password),
         date_created= str(datetime.now())
     )
         
