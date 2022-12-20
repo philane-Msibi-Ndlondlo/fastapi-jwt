@@ -6,6 +6,11 @@ name = "pypi"
 [packages]
 fastapi = "*"
 uvicorn = "*"
+python-decouple = "*"
+email-validator = "*"
+motor = "*"
+beanie = "*"
+passlib = {extras = ["bcrypt"], version = "*"}
 
 [dev-packages]
 
