@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
+from .router import root_router
+
 app = FastAPI()
 
-@app.get("/")
-async def root_path():
-    return {"message": "This is the root Path"}
+app.include_router(root_router)
