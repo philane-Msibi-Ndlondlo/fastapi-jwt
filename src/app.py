@@ -18,7 +18,7 @@ async def app_init():
     Initialize crucial application services
     """
     
-    db_client = AsyncIOMotorClient(settings.DATABASE_URL).employees
+    db_client = AsyncIOMotorClient(settings.DATABASE_URL).xyzcompany
     
     await init_beanie(
         database=db_client,

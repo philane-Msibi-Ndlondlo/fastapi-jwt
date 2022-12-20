@@ -1,6 +1,12 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, HTTPException
+
+from datetime import datetime
 
 from ..schemas.user_schema import UserRegisterSchema, UserRegisterResponseSchema
+
+from ..models.user import userModel
+
+from ..utils.password_utils import passwordUtils
 
 auth_router = APIRouter()
 
@@ -13,4 +19,24 @@ async def register_user(user: UserRegisterSchema):
         _type_: _description_
     """
     
-    return UserRegisterResponseSchema(uuid="ab87e1c0-bc4e-44e9-9c45-e09cdb237a2f", firstname=user.firstname, lastname=user.lastname, email=user.email, date_created= "2022-12-20 16:10:58.138676")
+    user_exists = await userModel.by_email(user.email)
+    
+    if user_exists:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User Already Exists")
+        
+    new_user = userModel(
+        firstname=user.firstname,
+        lastname=user.lastname,
+        email=user.email,
+        nickname=user.nickname,
+        password=user.password,
+        date_created= str(datetime.now())
+    )
+        
+    try:
+        await new_user.save()
+        return UserRegisterResponseSchema(message="User Registered Successfully")
+        
+    except Exception as exc:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to create user record. {exc}")
+        

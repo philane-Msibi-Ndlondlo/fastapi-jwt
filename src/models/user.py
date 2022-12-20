@@ -18,7 +18,7 @@ class userModel(Document):
     nickname: Optional[str] = Field(default_factory=None)
     email: Indexed(EmailStr, unique=True)
     password: str
-    date_created: str = datetime.now()
+    date_created: str = None
     active: bool = False
     
     def __repr__(self) -> str:
@@ -38,5 +38,5 @@ class userModel(Document):
     async def by_email(self, email: str):
         return await self.find_one(self.email == email)
     
-    class Collection:
+    class Settings:
         name = "users"

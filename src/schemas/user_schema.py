@@ -47,21 +47,11 @@ class UserRegisterResponseSchema(BaseModel):
     Args:
         BaseModel
     """
-    uuid: UUID = Field(..., description="The unique identifier of the user's record")
-    firstname: str = Field(..., description="The First Name Of The User")
-    lastname: str = Field(..., description="The Last Name Of The User")
-    nickname: Optional[str] = Field(default=None, description="The Nickname or Prefered Name Of The User")
-    email: EmailStr = Field(..., description="The Email Address Of The User")
-    date_created: str = Field(default=None, description="The user's record's created timestamp")
+    message: str = Field(..., description="Message of outcome")
     
     class Config:
         schema_extra = {
             "example": {
-                "uuid": "ab87e1c0-bc4e-44e9-9c45-e09cdb237a2f",
-                "firstname": "Jane",
-                "lastname": "Doe",
-                "nickname": "Janey",
-                "email": "jane@doe.com",
-                "date_created": "2022-12-20 16:10:58.138676"
+                "message": "Message Added Succesfully"
             }
         }

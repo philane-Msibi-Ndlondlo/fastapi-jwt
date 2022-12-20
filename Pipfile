@@ -10,6 +10,7 @@ python-decouple = "*"
 email-validator = "*"
 motor = "*"
 beanie = "*"
+passlib = {extras = ["bcrypt"], version = "*"}
 
 [dev-packages]
 

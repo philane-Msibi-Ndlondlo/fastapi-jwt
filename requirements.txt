@@ -4,3 +4,4 @@ python-decouple
 email-validator
 motor
 beanie
+passlib[bcrypt]
