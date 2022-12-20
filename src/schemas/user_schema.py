@@ -9,11 +9,11 @@ class UserSchema(BaseModel):
     Args:
         BaseModel
     """
-    firstname: str = Field(..., description="The First Name Of The User")
-    lastname: str = Field(..., description="The Last Name Of The User")
+    firstname: str = Field(..., description="The First Name Of The User", min_length=3, max_length=20)
+    lastname: str = Field(..., description="The Last Name Of The User", min_length=3, max_length=20)
     nickname: Optional[str] = Field(default=None, description="The Nickname or Prefered Name Of The User")
-    email: EmailStr = Field(..., description="The Email Address Of The User")
-    password: str = Field(..., description="The Password Of The User")
+    email: EmailStr = Field(...,description="The Email Address Of The User")
+    password: str = Field(..., description="The Password Of The User", min_length=8, max_length=20)
     active: bool = Field(default=False, description="The Password Of The User") 
     
 class UserRegisterSchema(BaseModel):
@@ -23,11 +23,11 @@ class UserRegisterSchema(BaseModel):
     Args:
         BaseModel
     """
-    firstname: str = Field(..., description="The First Name Of The User")
-    lastname: str = Field(..., description="The Last Name Of The User")
+    firstname: str = Field(..., description="The First Name Of The User", min_length=3, max_length=20)
+    lastname: str = Field(..., description="The Last Name Of The User", min_length=3, max_length=20)
     nickname: Optional[str] = Field(default=None, description="The Nickname or Prefered Name Of The User")
-    email: EmailStr = Field(..., description="The Email Address Of The User")
-    password: str = Field(..., description="The Password Of The User")
+    email: EmailStr = Field(...,description="The Email Address Of The User")
+    password: str = Field(..., description="The Password Of The User", min_length=8, max_length=20)
     
     class Config:
         schema_extra = {

@@ -2,3 +2,5 @@ fastapi
 uvicorn
 python-decouple
 email-validator
+motor
+beanie
